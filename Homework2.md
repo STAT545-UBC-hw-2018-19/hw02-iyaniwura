@@ -1073,7 +1073,7 @@ dim(VADeaths)  # displays the dimension
 
     ## [1] 5 4
 
-Note: The result for the kable function makes it difficult for my *github\_document* to run so I have displayed them in *html\_document* and commented the code here.
+Note: The result for the kable function makes it difficult for my *github\_document* to run so I have displayed them in *html\_document* and commented the code here. Ooops! I just noticed that even githut cannot display the html document result online because they are too large. So I have decided to just leave the code there!
 
 Let us use the **kable()** to display the
 

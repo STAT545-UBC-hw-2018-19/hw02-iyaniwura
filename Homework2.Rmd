@@ -3,9 +3,9 @@ title: 'Homework 2: '
 author: "Sarafa Iyaniwura"
 date: "September 20, 2018"
 output:
-  html_document:
-    toc: yes
   github_document:
+    toc: yes
+  html_document:
     toc: yes
   pdf_document:
     toc: yes
