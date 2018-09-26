@@ -1,0 +1,1616 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Homework 2:},
+            pdfauthor={Sarafa Iyaniwura},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{{#1}}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Homework 2:}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Sarafa Iyaniwura}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{September 20, 2018}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage[table]{xcolor}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{\texorpdfstring{Exploring Gapminder data using \textbf{dplyr}
+and
+\textbf{ggplot2}}{Exploring Gapminder data using dplyr and ggplot2}}\label{exploring-gapminder-data-using-dplyr-and-ggplot2}
+
+In this assignment, we explore the gapminder data set using the data
+wranggling library \textbf{dplyr} and data exploration library
+\textbf{ggplot2}, used for plotting data. The \textbf{dplyr} library is
+loaded through the \textbf{tidyverse} library.
+
+\subsection{1. Loading libraries}\label{loading-libraries}
+
+First, let us load the libraries that would be used to explore the data
+set. Here, we load the \textbf{gapminder} data set and the
+\textbf{tidyverse} library.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(gapminder)  }\CommentTok{# loads gapminder data}
+\KeywordTok{library}\NormalTok{(tidyverse)  }\CommentTok{# loads the tidyverse library}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: replacing previous import by 'tibble::as_tibble' when loading
+## 'broom'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: replacing previous import by 'tibble::tibble' when loading 'broom'
+\end{verbatim}
+
+\begin{verbatim}
+## -- Attaching packages ---------------------------------- tidyverse 1.2.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## √ ggplot2 3.0.0     √ purrr   0.2.5
+## √ tibble  1.4.2     √ dplyr   0.7.6
+## √ tidyr   0.8.1     √ stringr 1.3.1
+## √ readr   1.1.1     √ forcats 0.3.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\subsection{2. Smell testing the data: exploring the features of the
+data}\label{smell-testing-the-data-exploring-the-features-of-the-data}
+
+In this section, we shall check the features of the data such as the
+structure, the number and data types of the variables, the dimension of
+the data, among others.
+
+\subsubsection{\texorpdfstring{2.1 \textbf{str()}
+function}{2.1 str() function}}\label{str-function}
+
+This function is used to check the structure and class of the data. It
+give a comprehensive information about the data. Let us see how this
+function is used and the output it produces.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(gapminder)  }\CommentTok{# displays the structure of the data like the variables, their types, the dimension, ...}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Classes 'tbl_df', 'tbl' and 'data.frame':    1704 obs. of  6 variables:
+##  $ country  : Factor w/ 142 levels "Afghanistan",..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
+##  $ pop      : int  8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+##  $ gdpPercap: num  779 821 853 836 740 ...
+\end{verbatim}
+
+Observe that this function has given us a lot of information about the
+data. Information such as the class of the data, the number of
+variables, the type of each of the variable and so on. It is important
+to mention that one can still check for this properties of the data
+using some other functions.
+
+Before we use other functions to explore the structure of thiz data, let
+us view its first few rows using the \textbf{head()} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(gapminder) }\CommentTok{# displays the first few rows of the data (default is 6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
+## 5 Afghanistan Asia       1972    36.1 13079460      740.
+## 6 Afghanistan Asia       1977    38.4 14880372      786.
+\end{verbatim}
+
+This function gave us the first 6 rows of the data, we can always get
+more by using
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(gapminder,}\DecValTok{15}\NormalTok{) }\CommentTok{# displays the first 15 rows of the gapminder data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 15 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## 11 Afghanistan Asia       2002    42.1 25268405      727.
+## 12 Afghanistan Asia       2007    43.8 31889923      975.
+## 13 Albania     Europe     1952    55.2  1282697     1601.
+## 14 Albania     Europe     1957    59.3  1476505     1942.
+## 15 Albania     Europe     1962    64.8  1728137     2313.
+\end{verbatim}
+
+Also, the last few rows of a data frame can be displayed by using the
+\textbf{tail()} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tail}\NormalTok{(gapminder) }\CommentTok{# displays the last few rows of the data (default is 6)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   country  continent  year lifeExp      pop gdpPercap
+##   <fct>    <fct>     <int>   <dbl>    <int>     <dbl>
+## 1 Zimbabwe Africa     1982    60.4  7636524      789.
+## 2 Zimbabwe Africa     1987    62.4  9216418      706.
+## 3 Zimbabwe Africa     1992    60.4 10704340      693.
+## 4 Zimbabwe Africa     1997    46.8 11404948      792.
+## 5 Zimbabwe Africa     2002    40.0 11926563      672.
+## 6 Zimbabwe Africa     2007    43.5 12311143      470.
+\end{verbatim}
+
+Similarly, \textbf{tail(gapminder,n)} can be used to display the last
+\(n\) rows of the gapminder data.
+
+Now, let us check the features of the gapminder data one after the
+other.
+
+\subsubsection{\texorpdfstring{2.2 \textbf{class()}
+function}{2.2 class() function}}\label{class-function}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{class}\NormalTok{(gapminder)  }\CommentTok{# displays the class of the data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "tbl_df"     "tbl"        "data.frame"
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{tbl\_df}: tibbles data frame
+\item
+  \emph{tbl} : tibbles
+\item
+  \emph{data.frame}: data frame
+\end{enumerate}
+
+This tells us that the gapminder data is a data frame.
+
+\subsubsection{\texorpdfstring{2.3 \textbf{dim(), nrow(), ncol(), and
+names()}
+functions}{2.3 dim(), nrow(), ncol(), and names() functions}}\label{dim-nrow-ncol-and-names-functions}
+
+The next few function are used to display the dimension, the number of
+rows and columns, and the variables in the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(gapminder) }\CommentTok{#  diplays  the dimension of data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1704    6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nrow}\NormalTok{(gapminder) }\CommentTok{#  diplays  the number of rows}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1704
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ncol}\NormalTok{(gapminder) }\CommentTok{#  diplays  the number of columns}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{names}\NormalTok{(gapminder) }\CommentTok{# diplays the varibles/fields in the data }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "country"   "continent" "year"      "lifeExp"   "pop"       "gdpPercap"
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{2.4 \textbf{sapply()}
+function}{2.4 sapply() function}}\label{sapply-function}
+
+This function applies a specific function to a group of variables. Let
+us illusttrate how it works by using it to get the class of each of the
+variables in the gapminder data.
+
+We use \textbf{sapply()} function to check the class of the variables in
+our data as follows.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sapply}\NormalTok{(gapminder,class) }\CommentTok{# applies the 'class()' function to each variable in the gapminder data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   country continent      year   lifeExp       pop gdpPercap 
+##  "factor"  "factor" "integer" "numeric" "integer" "numeric"
+\end{verbatim}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Variables & data class\tabularnewline
+\midrule
+\endhead
+country & factor/categorical\tabularnewline
+continent & factor/categorical\tabularnewline
+year & numeric\tabularnewline
+lifeExp & integer\tabularnewline
+pop gdpPercap & numeric\tabularnewline
+\bottomrule
+\end{longtable}
+
+As another example, let us use the \textbf{sapply()} function to gapply
+the function \textbf{typeof()} to the gapminder data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sapply}\NormalTok{(gapminder,typeof) }\CommentTok{# applies the 'typeof()' function to each variable in the gapminder data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   country continent      year   lifeExp       pop gdpPercap 
+## "integer" "integer" "integer"  "double" "integer"  "double"
+\end{verbatim}
+
+Note that what we got is not what we are actually expecting, for
+example, `country' is categorical data but it gives integer. This is
+because the \textbf{typeof()} function returns the types of R objects.
+
+Let us try these same explorations by piping into the functions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data (and the result is piped into the next function)}
+\StringTok{  }\KeywordTok{sapply}\NormalTok{(class) }\CommentTok{# applies the class function on the loaded data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   country continent      year   lifeExp       pop gdpPercap 
+##  "factor"  "factor" "integer" "numeric" "integer" "numeric"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data (and the result is piped into the next function)}
+\StringTok{  }\KeywordTok{sapply}\NormalTok{(typeof) }\CommentTok{# applies the typeof() function on the loaded data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   country continent      year   lifeExp       pop gdpPercap 
+## "integer" "integer" "integer"  "double" "integer"  "double"
+\end{verbatim}
+
+\subsection{3. Exploring individual
+variable}\label{exploring-individual-variable}
+
+\subsection{3.1 Qualitative data}\label{qualitative-data}
+
+Let us begin by considering the \textbf{continent} variable. We first
+explore this variable using bar chat.
+
+\subsubsection{\texorpdfstring{3.1.1 \textbf{Bar
+chart}}{3.1.1 Bar chart}}\label{bar-chart}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{barchart <-}\StringTok{ }\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{continent,}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# calls the ggplot function and specify the axis and fill}
+\StringTok{    }\KeywordTok{geom_bar}\NormalTok{()  }\CommentTok{# specify the type of  plot}
+
+\NormalTok{barchart }\CommentTok{#sdisplays the bar chart}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+This bar chart shows the number of observations available for each
+continent. For instance, we have over 600 observation from Africa,
+around 400 for Asia, and around 300 for America.
+
+This information can be shown more precisely by extracting the
+`continent' column from the data and summarizing it as shown below;
+
+The \textbf{table()} and \textbf{summary()} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sumAry <-}\StringTok{ }\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads gapminder data}
+\StringTok{  }\KeywordTok{select}\NormalTok{(continent) %>%}\StringTok{ }\CommentTok{# extract the column for continents}
+\StringTok{    }\KeywordTok{summary}\NormalTok{()   }\CommentTok{# present a summary of the result}
+\NormalTok{sumAry}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     continent  
+##  Africa  :624  
+##  Americas:300  
+##  Asia    :396  
+##  Europe  :360  
+##  Oceania : 24
+\end{verbatim}
+
+We can also use the \textbf{table()} function to show the same result.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cont_table <-}\StringTok{ }\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads gapminder data}
+\StringTok{  }\KeywordTok{select}\NormalTok{(continent) %>%}\StringTok{ }\CommentTok{# extract the column for continents}
+\StringTok{    }\KeywordTok{table}\NormalTok{()  }\CommentTok{# present the result in  a table}
+
+\NormalTok{cont_table  }\CommentTok{# display the table}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## .
+##   Africa Americas     Asia   Europe  Oceania 
+##      624      300      396      360       24
+\end{verbatim}
+
+The \textbf{table()} and \textbf{summary()} functions as used here give
+the precise number of observations available for each continent. Next,
+we plot this information with a pie chart.
+
+\subsubsection{\texorpdfstring{3.1.2 \textbf{Pie
+chart}}{3.1.2 Pie chart}}\label{pie-chart}
+
+Let us display the information about the amount of observations
+available for each continent using a simple pie chart.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pie}\NormalTok{(cont_table) }\CommentTok{# use the table constructed earlier to plot a pie chart}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+We can also plot a pie chart using \textbf{ggplot()} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{piechart <-}\StringTok{ }\NormalTok{barchart +}\StringTok{ }\KeywordTok{coord_polar}\NormalTok{() }\CommentTok{# plot a pie chart with the ggplot function}
+\NormalTok{piechart}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+Observe that the code used to generate this plot depends on the code we
+used to plot bar chart earlier. In addition, this plot is not good for
+our data because it does not show the information for Oceania continent
+properly. Let us try another pie chart:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# plotting another type of pie chart}
+\NormalTok{piechart2 <-}\StringTok{ }\NormalTok{barchart +}\StringTok{ }
+\StringTok{  }\KeywordTok{coord_polar}\NormalTok{(}\StringTok{"y"}\NormalTok{,}\DataTypeTok{start=}\DecValTok{0}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Dark2"}\NormalTok{) +}\StringTok{ }
+\StringTok{      }\KeywordTok{theme_minimal}\NormalTok{()  }
+\NormalTok{piechart2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+This plot is better in the sense that it shows the information for all
+the continent well, but it may take some time to understand. Let us
+explore other types of pie charts available in ggplot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# plotting another type of pie chart}
+\NormalTok{piechart3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(gapminder,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\StringTok{""}\NormalTok{,}\DataTypeTok{fill=}\KeywordTok{factor}\NormalTok{(continent))) +}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{width=}\DecValTok{1}\NormalTok{) +}
+\StringTok{  }\KeywordTok{coord_polar}\NormalTok{(}\StringTok{"y"}\NormalTok{,}\DataTypeTok{start=}\DecValTok{0}\NormalTok{)  +}
+\StringTok{    }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Dark2"}\NormalTok{)  +}
+\StringTok{      }\KeywordTok{theme_minimal}\NormalTok{()  }
+
+\NormalTok{piechart3}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\subsubsection{\texorpdfstring{3.1.3 \textbf{Bullseye
+chart}}{3.1.3 Bullseye chart}}\label{bullseye-chart}
+
+Let us plot a bullseye chart
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# plotting a bullseye chart}
+\KeywordTok{ggplot}\NormalTok{(gapminder,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\StringTok{""}\NormalTok{,}\DataTypeTok{fill=}\KeywordTok{factor}\NormalTok{(continent))) +}\StringTok{ }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{width=}\DecValTok{1}\NormalTok{) +}
+\StringTok{  }\KeywordTok{coord_polar}\NormalTok{()  +}
+\StringTok{    }\KeywordTok{scale_fill_brewer}\NormalTok{(}\DataTypeTok{palette =} \StringTok{"Dark2"}\NormalTok{)  +}
+\StringTok{      }\KeywordTok{theme_minimal}\NormalTok{()  }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\subsubsection{\texorpdfstring{3.1.3
+\textbf{filter()}}{3.1.3 filter()}}\label{filter}
+
+We can also extract the observations for each continent using the
+\textbf{filter()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(continent ==}\StringTok{ 'Africa'}\NormalTok{) %>%}\StringTok{  }\CommentTok{# extract the data for African countries only}
+\StringTok{    }\KeywordTok{dim}\NormalTok{() }\CommentTok{# displays the dimension of the extracted data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 624   6
+\end{verbatim}
+
+This shows that we have 624 observation for African countries. We can
+always do the same for other continents or countries too. As one more
+example, let us check how many observations are from Nigeria.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(continent ==}\StringTok{ 'Africa'}\NormalTok{) %>%}\StringTok{  }\CommentTok{# extract the data for African countries only}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(country ==}\StringTok{ 'Nigeria'}\NormalTok{) %>%}\StringTok{ }\CommentTok{# extract the observations from Nigeria.}
+\StringTok{      }\KeywordTok{dim}\NormalTok{() }\CommentTok{# displays the dimension of the extracted data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12  6
+\end{verbatim}
+
+There are 12 of them. We can bypass the part of this code that first
+extracted the data for Africa, and just extract that of Nigeria directly
+from the gapminder data. This is shown below;
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(country ==}\StringTok{ 'Nigeria'}\NormalTok{) %>%}\StringTok{ }\CommentTok{# extract the observations from Nigeria.}
+\StringTok{      }\KeywordTok{dim}\NormalTok{() }\CommentTok{# displays the dimension of the extracted data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12  6
+\end{verbatim}
+
+\subsection{3.2 Quantitative data}\label{quantitative-data}
+
+Here, we would be considering quantitative variables. First, let us
+check how many years of data is available for each country.
+
+\subsubsection{\texorpdfstring{3.2.1 \textbf{select()} and
+\textbf{unique}
+functions}{3.2.1 select() and unique functions}}\label{select-and-unique-functions}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(year) %>%}\StringTok{  }\CommentTok{# extracts the 'year' column}
+\StringTok{    }\KeywordTok{unique}\NormalTok{() }\CommentTok{# displays each entry uniquely}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 1
+##     year
+##    <int>
+##  1  1952
+##  2  1957
+##  3  1962
+##  4  1967
+##  5  1972
+##  6  1977
+##  7  1982
+##  8  1987
+##  9  1992
+## 10  1997
+## 11  2002
+## 12  2007
+\end{verbatim}
+
+This shows that we have 12 years of data.
+
+\subsubsection{\texorpdfstring{3.2.2 \textbf{summary()}
+function}{3.2.2 summary() function}}\label{summary-function}
+
+Let us look at the summary satistics of the numerical variables
+
+\paragraph{\texorpdfstring{*
+\textbf{Population}}{* Population}}\label{population}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(pop) %>%}\StringTok{ }\CommentTok{# extract population column}
+\StringTok{    }\KeywordTok{summary}\NormalTok{()  }\CommentTok{# gives summary of population}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       pop           
+##  Min.   :6.001e+04  
+##  1st Qu.:2.794e+06  
+##  Median :7.024e+06  
+##  Mean   :2.960e+07  
+##  3rd Qu.:1.959e+07  
+##  Max.   :1.319e+09
+\end{verbatim}
+
+Here is the Summary statistics for population (pop)
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Statistic & values\tabularnewline
+\midrule
+\endhead
+Minimum & 60,010\tabularnewline
+First quarter & 2.794 million\tabularnewline
+Median & 7.024 million\tabularnewline
+Mean & 29.60 million\tabularnewline
+Third Quarter & 19.59 million\tabularnewline
+Maximum & 1.319 billion\tabularnewline
+\bottomrule
+\end{longtable}
+
+\paragraph{\texorpdfstring{* \textbf{Life
+expectancy}}{* Life expectancy}}\label{life-expectancy}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}
+\StringTok{  }\KeywordTok{select}\NormalTok{(lifeExp) %>%}\StringTok{ }\CommentTok{# extract life expectancy column}
+\StringTok{    }\KeywordTok{summary}\NormalTok{()  }\CommentTok{# displays the summary statistic for life expectancy}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     lifeExp     
+##  Min.   :23.60  
+##  1st Qu.:48.20  
+##  Median :60.71  
+##  Mean   :59.47  
+##  3rd Qu.:70.85  
+##  Max.   :82.60
+\end{verbatim}
+
+Here is the Summary statistics for Life expectancy
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Statistic & values (years)\tabularnewline
+\midrule
+\endhead
+Minimum & 23.60\tabularnewline
+First quarter & 48.20\tabularnewline
+Median & 60.71\tabularnewline
+Mean & 59.47\tabularnewline
+Third Quarter & 70.85\tabularnewline
+Maximum & 82.60\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsubsection{\texorpdfstring{3.2.3 \textbf{histogram()} and
+\textbf{density()}}{3.2.3 histogram() and density()}}\label{histogram-and-density}
+
+Let us plot the life expectancy for the extire gapminder data
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp)) +}\StringTok{ }\CommentTok{# calls the ggplot function}
+\StringTok{    }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{bins=}\DecValTok{30}\NormalTok{,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{continent)) }\CommentTok{# specifies the type of plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+Hmm\ldots{} This plot does not give us detailed information about the
+life expectancy for each continent. Let us plot the same data using a
+density plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp)) +}\StringTok{   }\CommentTok{# calls the ggplot function}
+\StringTok{     }\KeywordTok{geom_density}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{continent)) }\CommentTok{# specifies the type of plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+This looks better but we still have some overlapping of data. Maybe we
+can plot for each continent separately?
+
+\subsubsection{\texorpdfstring{3.2.4
+\textbf{facet\_wrap()}}{3.2.4 facet\_wrap()}}\label{facet_wrap}
+
+Now, let us plot the histogram and density plot for each continent
+separately using the \textbf{facet\_wrap()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp)) +}\StringTok{ }\CommentTok{# calls the ggplot function}
+\StringTok{    }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{bins=}\DecValTok{30}\NormalTok{,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{        }\KeywordTok{facet_wrap}\NormalTok{(~continent) }\CommentTok{# specifies that it should plot for each continent seperately}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+How about the gdp per capital for each continent?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(gdpPercap)) +}\StringTok{ }\CommentTok{# calls the ggplot function}
+\StringTok{    }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{bins=}\DecValTok{30}\NormalTok{,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{  }\CommentTok{# specifies the type of plot}
+\StringTok{      }\KeywordTok{facet_wrap}\NormalTok{(~continent) +}\CommentTok{# specifies that it should plot for each continent seperately}
+\StringTok{        }\KeywordTok{scale_y_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Transformation introduced infinite values in continuous y-axis
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 94 rows containing missing values (geom_bar).
+\end{verbatim}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp)) +}\StringTok{ }\CommentTok{# calls the ggplot function}
+\StringTok{    }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{bins=}\DecValTok{30}\NormalTok{,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{        }\KeywordTok{facet_wrap}\NormalTok{(~continent) }\CommentTok{# specifies that it should plot for each continent seperately}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Ignoring unknown parameters: bins
+\end{verbatim}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(gdpPercap)) +}\StringTok{ }\CommentTok{# calls the ggplot function}
+\StringTok{    }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{bins=}\DecValTok{30}\NormalTok{,}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{        }\KeywordTok{facet_wrap}\NormalTok{(~continent) }\CommentTok{# specifies that it should plot for each continent seperately}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Ignoring unknown parameters: bins
+\end{verbatim}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-31-1.pdf}
+
+\subsection{4. Exploring various plots}\label{exploring-various-plots}
+
+In this section, we shall be exploring and visualizing the entire
+gapminder data or part of using plots and figures.
+
+\subsubsection{4.1 Gdp per capital and
+population}\label{gdp-per-capital-and-population}
+
+Let us begin by plotting a scatter plot of the *gdpPercap\textbf{ and
+}population**.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{select}\NormalTok{(pop,gdpPercap,continent) %>%}\StringTok{ }\CommentTok{# extract the  columns to be considered}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(pop,gdpPercap)) +}\StringTok{  }\CommentTok{# calling the ggplot function}
+\StringTok{        }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent))  +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{          }\KeywordTok{scale_y_log10}\NormalTok{() +}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\CommentTok{# log scale for both axis}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+Hmm this looks messy! Let us plot the same columns but for one continent
+only, say Europe.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(continent==}\StringTok{'Europe'}\NormalTok{)  %>%}\StringTok{   }\CommentTok{# extracting data for Europian countries only}
+\StringTok{    }\KeywordTok{select}\NormalTok{(pop,gdpPercap,continent) %>%}\StringTok{ }\CommentTok{# select the columns to be considered}
+\StringTok{      }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(pop,gdpPercap)) +}\StringTok{   }\CommentTok{# calling the ggplot function}
+\StringTok{        }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent))  +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{          }\KeywordTok{scale_y_log10}\NormalTok{() +}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\CommentTok{# log scale for both axis}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+We can do this in a more fancy way by plotting for each continent
+separately using the \textbf{facet\_wrap()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{      }\KeywordTok{select}\NormalTok{(pop,gdpPercap,continent)  %>%}\StringTok{  }\CommentTok{# select the variables to be considered}
+\StringTok{        }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(pop,gdpPercap)) +}\StringTok{   }\CommentTok{# calling the ggplot function}
+\StringTok{          }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{              }\KeywordTok{facet_wrap}\NormalTok{(~continent) +}\StringTok{ }
+\StringTok{                  }\KeywordTok{scale_y_log10}\NormalTok{() +}\StringTok{ }\KeywordTok{scale_x_log10}\NormalTok{() }\CommentTok{# log scale for both axis}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+This shows the GDP per capital vs population for each continent.
+
+Some of the things we can easily see from these plots is that in Asia,
+when the pupolation is high, the gdp per capital is low and when the gdp
+per capital is high, the population is low. From this graphs we can
+easily see the relationship between the gdp per capital for each country
+and the population over the years.
+
+\subsubsection{4.1 Population and life
+expectancy}\label{population-and-life-expectancy}
+
+Let us plot population vs life expectancy for this data and colour them
+by continent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{    }\KeywordTok{select}\NormalTok{(lifeExp,pop,continent) %>%}\StringTok{ }\CommentTok{# select the variables to be considered}
+\StringTok{        }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{lifeExp,}\DataTypeTok{y=}\NormalTok{pop)) +}\StringTok{   }\CommentTok{# calling the ggplot function}
+\StringTok{            }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent))+}\StringTok{  }\CommentTok{# specifies the type of plot}
+\StringTok{                }\KeywordTok{scale_y_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-35-1.pdf}
+
+Now, let us plot this information continent by continent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{        }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp,pop)) +}\StringTok{   }\CommentTok{# calling the ggplot function}
+\StringTok{          }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{              }\KeywordTok{facet_wrap}\NormalTok{(~continent) +}\StringTok{ }\KeywordTok{scale_y_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-36-1.pdf}
+
+How about somthing similar for African and Europian countries only.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(continent==}\StringTok{'Europe'} \NormalTok{|}\StringTok{ }\NormalTok{continent==}\StringTok{'Africa'}\NormalTok{)  %>%}\StringTok{  }\CommentTok{# extract data for African and Europian countries only}
+\StringTok{        }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp,pop)) +}\StringTok{  }\CommentTok{# calling the ggplot function}
+\StringTok{          }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{            }\KeywordTok{scale_y_log10}\NormalTok{()  }\CommentTok{# specify log scale for y}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+This shows that most of the African countries have lower life
+expentancy, relative to the Europian countries.
+
+Let us see how this information is displayed with a \textbf{boxplot()}
+and a \textbf{violin()} plot:
+
+\begin{itemize}
+\tightlist
+\item
+  Boxplot
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(continent==}\StringTok{'Europe'} \NormalTok{|}\StringTok{ }\NormalTok{continent==}\StringTok{'Africa'}\NormalTok{)  %>%}\StringTok{  }\CommentTok{# extract data for African and Europian countries only}
+\StringTok{        }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp,pop,}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{  }\CommentTok{# calling the ggplot function}
+\StringTok{          }\KeywordTok{geom_boxplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent)) +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{            }\KeywordTok{scale_y_log10}\NormalTok{()  }\CommentTok{# specify log scale for y}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-38-1.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  Violin plot
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(continent==}\StringTok{'Europe'} \NormalTok{|}\StringTok{ }\NormalTok{continent==}\StringTok{'Africa'}\NormalTok{)  %>%}\StringTok{  }\CommentTok{# extract data for African and Europian countries only}
+\StringTok{      }\KeywordTok{select}\NormalTok{(lifeExp,pop,continent)  %>%}
+\StringTok{        }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(lifeExp,pop,}\DataTypeTok{fill=}\NormalTok{continent)) +}
+\StringTok{          }\KeywordTok{geom_violin}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent))  +}\StringTok{ }\CommentTok{# specifies the type of plot}
+\StringTok{            }\KeywordTok{scale_y_log10}\NormalTok{()  }\CommentTok{# specify log scale for y}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: position_dodge requires non-overlapping x intervals
+\end{verbatim}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-39-1.pdf}
+
+Now, let us use \textbf{boxplot()} to show the life expentancy data for
+each continent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(continent,lifeExp,}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent))  }\CommentTok{# specifies the type of plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-40-1.pdf}
+
+What of using \textbf{geom\_violin()} plot together with
+\textbf{geom\_jitter()} for the same data?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(continent,lifeExp)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_violin}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{continent,}\DataTypeTok{fill=}\NormalTok{continent)) +}\StringTok{  }\CommentTok{# specifies the type of plot}
+\StringTok{      }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.2}\NormalTok{)  }\CommentTok{# specifies additional type of plot}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-41-1.pdf}
+
+\subsubsection{4.3 Gdp per capital and
+continent}\label{gdp-per-capital-and-continent}
+
+Let us use a boxplot to show the gpd per capital for each continent in
+different years using \textbf{facet\_wrap()} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(continent,gdpPercap)) +}
+\StringTok{            }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill=}\StringTok{'green'}\NormalTok{) +}\StringTok{  }\CommentTok{# specifies the type of plot}
+\StringTok{                }\KeywordTok{scale_y_log10}\NormalTok{() +}\StringTok{ }
+\StringTok{                  }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.3}\NormalTok{,}\DataTypeTok{fill=}\StringTok{'red'}\NormalTok{) +}\StringTok{   }\CommentTok{# specifies additional type of plot}
+\StringTok{                        }\KeywordTok{facet_wrap}\NormalTok{(~year)  }\CommentTok{# specify that each  year should be plotted separately}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-42-1.pdf}
+
+How about plotting the same figure but for some selected years? Let us
+do this for the following years; 1952, 1962, 1972, 1982, 1997, and 2007.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{  }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year ==}\StringTok{ '1952'} \NormalTok{|}\StringTok{ }\NormalTok{year ==}\StringTok{ '1962'} \NormalTok{|}\StringTok{ }\NormalTok{year ==}\StringTok{ '1972'} \NormalTok{|}\StringTok{ }\NormalTok{year ==}\StringTok{ '1982'} \NormalTok{|}\StringTok{ }\NormalTok{year ==}\StringTok{ '1997'} \NormalTok{|}\StringTok{ }\NormalTok{year ==}\StringTok{ '2007'}\NormalTok{) %>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(continent,gdpPercap)) +}
+\StringTok{              }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill=}\StringTok{'green'}\NormalTok{) +}
+\StringTok{                  }\KeywordTok{scale_y_log10}\NormalTok{() +}\StringTok{ }
+\StringTok{                    }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.3}\NormalTok{,}\DataTypeTok{fill=}\StringTok{'red'}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(~year)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-43-1.pdf}
+
+What if we want to do the same but for a specific year upward or
+downward? Say from 1982 to 2007
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year >=}\StringTok{ "1982"}\NormalTok{) %>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(continent,gdpPercap)) +}
+\StringTok{              }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill=}\StringTok{'green'}\NormalTok{) +}
+\StringTok{                  }\KeywordTok{scale_y_log10}\NormalTok{() +}\StringTok{ }
+\StringTok{                    }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.3}\NormalTok{,}\DataTypeTok{fill=}\StringTok{'red'}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(~year)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-44-1.pdf}
+
+Let us do the same for countreis less than 1982;
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(year <}\StringTok{ '1982'}\NormalTok{) %>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(continent,gdpPercap)) +}
+\StringTok{              }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill=}\StringTok{'green'}\NormalTok{) +}
+\StringTok{                  }\KeywordTok{scale_y_log10}\NormalTok{() +}\StringTok{ }
+\StringTok{                    }\KeywordTok{geom_jitter}\NormalTok{(}\DataTypeTok{alpha=}\FloatTok{0.3}\NormalTok{,}\DataTypeTok{fill=}\StringTok{'red'}\NormalTok{) +}\StringTok{ }
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(~year)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-45-1.pdf}
+
+Let us use \textbf{geom\_smooth()} function to plot the population for
+all the continent.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(year,pop,}\DataTypeTok{colour=}\NormalTok{continent)) +}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_smooth}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-46-1.pdf}
+
+Population is increasing over the years.
+
+How about the same for only Asia and Africa over the years?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(continent==}\StringTok{"Asia"} \NormalTok{|}\StringTok{ }\NormalTok{continent==}\StringTok{"Africa"}\NormalTok{) %>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(year,pop,}\DataTypeTok{colour=}\NormalTok{continent)) +}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_smooth}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-47-1.pdf}
+
+Asian's population is increasing faster than that of Africa over the
+years.
+
+Let us plot the gdp per capital for all the continents using the same
+function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gapminder %>%}\StringTok{ }\CommentTok{# loads the gapminder data}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(year,gdpPercap,}\DataTypeTok{colour=}\NormalTok{continent)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{model=}\NormalTok{lm) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Ignoring unknown parameters: model
+\end{verbatim}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-48-1.pdf}
+
+Gpd per capital for each continent is increasing over the years, with
+Africa having the slowest growth.
+
+\subsection{4.1 Extracting part of the data and exploring
+it.}\label{extracting-part-of-the-data-and-exploring-it.}
+
+Here, I will be extracting the observations from African and then those
+from Nigeria. We will explore the extracted data in more detail.
+
+Let us extract the observations for all the African countries using the
+\textbf{filter()} function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{AfricData <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(gapminder,continent==}\StringTok{"Africa"}\NormalTok{) }\CommentTok{# extracts the observations from Africa}
+\KeywordTok{dim}\NormalTok{(AfricData) }\CommentTok{# displays the size of the data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 624   6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(AfricData,}\DecValTok{20}\NormalTok{)  }\CommentTok{# displays the first 20 rows of the extracted data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 6
+##    country continent  year lifeExp      pop gdpPercap
+##    <fct>   <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Algeria Africa     1952    43.1  9279525     2449.
+##  2 Algeria Africa     1957    45.7 10270856     3014.
+##  3 Algeria Africa     1962    48.3 11000948     2551.
+##  4 Algeria Africa     1967    51.4 12760499     3247.
+##  5 Algeria Africa     1972    54.5 14760787     4183.
+##  6 Algeria Africa     1977    58.0 17152804     4910.
+##  7 Algeria Africa     1982    61.4 20033753     5745.
+##  8 Algeria Africa     1987    65.8 23254956     5681.
+##  9 Algeria Africa     1992    67.7 26298373     5023.
+## 10 Algeria Africa     1997    69.2 29072015     4797.
+## 11 Algeria Africa     2002    71.0 31287142     5288.
+## 12 Algeria Africa     2007    72.3 33333216     6223.
+## 13 Angola  Africa     1952    30.0  4232095     3521.
+## 14 Angola  Africa     1957    32.0  4561361     3828.
+## 15 Angola  Africa     1962    34    4826015     4269.
+## 16 Angola  Africa     1967    36.0  5247469     5523.
+## 17 Angola  Africa     1972    37.9  5894858     5473.
+## 18 Angola  Africa     1977    39.5  6162675     3009.
+## 19 Angola  Africa     1982    39.9  7016384     2757.
+## 20 Angola  Africa     1987    39.9  7874230     2430.
+\end{verbatim}
+
+Now, we would extract the observation for NIgeria only.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NigData <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(gapminder,country==}\StringTok{"Nigeria"}\NormalTok{)}
+\KeywordTok{dim}\NormalTok{(NigData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 12  6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(NigData)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 6 x 6
+##   country continent  year lifeExp      pop gdpPercap
+##   <fct>   <fct>     <int>   <dbl>    <int>     <dbl>
+## 1 Nigeria Africa     1952    36.3 33119096     1077.
+## 2 Nigeria Africa     1957    37.8 37173340     1101.
+## 3 Nigeria Africa     1962    39.4 41871351     1151.
+## 4 Nigeria Africa     1967    41.0 47287752     1015.
+## 5 Nigeria Africa     1972    42.8 53740085     1698.
+## 6 Nigeria Africa     1977    44.5 62209173     1982.
+\end{verbatim}
+
+Let us check how the expectancy of Nigerians have changed over the
+years. We can plot this life expectancy over the years using
+\textbf{geom\_line()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NigData %>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(year,lifeExp)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() +}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-51-1.pdf}
+
+Now, let us plot Nigeria population over the years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NigData %>%}\StringTok{   }\CommentTok{# load the extracted observation for Nigeria }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(year,pop)) +}\StringTok{ }\CommentTok{# calls the ggplot function}
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() +}\StringTok{  }\CommentTok{# specifies the type of plot you want}
+\StringTok{      }\KeywordTok{geom_area}\NormalTok{(}\DataTypeTok{fill=}\StringTok{'green'}\NormalTok{) }\CommentTok{# fill the area under the graph}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-52-1.pdf}
+
+Here, I have use the \textbf{geom\_area()} function to shade the area
+under the curve.
+
+We do the same for gdp per capital over the years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NigData %>%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{( }\KeywordTok{aes}\NormalTok{(year,gdpPercap)) +}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{() +}\StringTok{ }
+\StringTok{      }\KeywordTok{geom_point}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-53-1.pdf}
+
+Next, we check if there is relationship between the variables in the
+observation for Nigeria.
+
+Let us start by checking life expectancy and population over the years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NigData %>%}
+\StringTok{    }\KeywordTok{count}\NormalTok{(lifeExp,pop,year) %>%}
+\StringTok{        }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{lifeExp,}\DataTypeTok{y=}\NormalTok{pop)) +}\StringTok{ }
+\StringTok{            }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{year,}\DataTypeTok{size=}\NormalTok{year))+}
+\StringTok{                }\KeywordTok{scale_y_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-54-1.pdf}
+
+From the graph, it looks like there is a positive relationship between
+them. Let us check verify this checking the correlation between the two
+variables
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(NigData$lifeExp,NigData$pop)  }\CommentTok{# computes correlation between lifeExp and pop}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.853939
+\end{verbatim}
+
+This confirms that there is a stron positive relationship between them.
+What of life expectancy and gdp per capital?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NigData %>%}
+\StringTok{      }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{lifeExp,}\DataTypeTok{y=}\NormalTok{gdpPercap)) +}\StringTok{ }
+\StringTok{            }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{year,}\DataTypeTok{size=}\NormalTok{year))+}
+\StringTok{                }\KeywordTok{scale_y_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-56-1.pdf}
+
+It is hard to tell if there is a relationship from the plot. Let us
+check my computing the correlation coefficient.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(NigData$lifeExp,NigData$gdpPercap) }\CommentTok{# computes correlation between lifeExp and gdpPercap}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.7360712
+\end{verbatim}
+
+There is a positive relationship between lifeExp and gdpPercap. Lastly,
+we plot the population vs gdp per capital.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{NigData %>%}
+\StringTok{      }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{pop,}\DataTypeTok{y=}\NormalTok{gdpPercap)) +}\StringTok{ }
+\StringTok{            }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{color=}\NormalTok{year,}\DataTypeTok{size=}\NormalTok{year))+}
+\StringTok{                }\KeywordTok{scale_y_log10}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-58-1.pdf}
+
+It is not easy to tell from the plot if a relationship exist, let us
+verify with correlation coefficient.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(NigData$pop,NigData$gdpPercap) }\CommentTok{# computes correlation between population and gdpPercap}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6928366
+\end{verbatim}
+
+\subsection{I want to do more}\label{i-want-to-do-more}
+
+The analyst wanted to extract data for Rwanda and Afghanistan only and
+they used the following code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{filter}\NormalTok{(gapminder, country ==}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Rwanda"}\NormalTok{,}\StringTok{"Afghanistan"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1957    30.3  9240934      821.
+##  2 Afghanistan Asia       1967    34.0 11537966      836.
+##  3 Afghanistan Asia       1977    38.4 14880372      786.
+##  4 Afghanistan Asia       1987    40.8 13867957      852.
+##  5 Afghanistan Asia       1997    41.8 22227415      635.
+##  6 Afghanistan Asia       2007    43.8 31889923      975.
+##  7 Rwanda      Africa     1952    40    2534927      493.
+##  8 Rwanda      Africa     1962    43    3051242      597.
+##  9 Rwanda      Africa     1972    44.6  3992121      591.
+## 10 Rwanda      Africa     1982    46.2  5507565      882.
+## 11 Rwanda      Africa     1992    23.6  7290203      737.
+## 12 Rwanda      Africa     2002    43.4  7852401      786.
+\end{verbatim}
+
+\textbf{NO!} the analyst did not succeed. Because this only produced 12
+rows, observations for only 6 years fro each of the countries instead of
+12 for each, to give a total of 24 rows.
+
+We see below that in the pagminder data, there are 12 rows for Rwanda
+and also 12 for Afghanistan.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{filter}\NormalTok{(gapminder, country ==}\StringTok{ "Rwanda"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 6
+##    country continent  year lifeExp     pop gdpPercap
+##    <fct>   <fct>     <int>   <dbl>   <int>     <dbl>
+##  1 Rwanda  Africa     1952    40   2534927      493.
+##  2 Rwanda  Africa     1957    41.5 2822082      540.
+##  3 Rwanda  Africa     1962    43   3051242      597.
+##  4 Rwanda  Africa     1967    44.1 3451079      511.
+##  5 Rwanda  Africa     1972    44.6 3992121      591.
+##  6 Rwanda  Africa     1977    45   4657072      670.
+##  7 Rwanda  Africa     1982    46.2 5507565      882.
+##  8 Rwanda  Africa     1987    44.0 6349365      848.
+##  9 Rwanda  Africa     1992    23.6 7290203      737.
+## 10 Rwanda  Africa     1997    36.1 7212583      590.
+## 11 Rwanda  Africa     2002    43.4 7852401      786.
+## 12 Rwanda  Africa     2007    46.2 8860588      863.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{filter}\NormalTok{(gapminder, country ==}\StringTok{ "Afghanistan"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 12 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## 11 Afghanistan Asia       2002    42.1 25268405      727.
+## 12 Afghanistan Asia       2007    43.8 31889923      975.
+\end{verbatim}
+
+The follow code can be used to extract all the observations for Rwanda
+and Afghanistan only from the gapminder data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{filter}\NormalTok{(gapminder, country ==}\StringTok{ "Rwanda"}  \NormalTok{|}\StringTok{ }\NormalTok{country ==}\StringTok{  "Afghanistan"} \NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 24 x 6
+##    country     continent  year lifeExp      pop gdpPercap
+##    <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
+##  1 Afghanistan Asia       1952    28.8  8425333      779.
+##  2 Afghanistan Asia       1957    30.3  9240934      821.
+##  3 Afghanistan Asia       1962    32.0 10267083      853.
+##  4 Afghanistan Asia       1967    34.0 11537966      836.
+##  5 Afghanistan Asia       1972    36.1 13079460      740.
+##  6 Afghanistan Asia       1977    38.4 14880372      786.
+##  7 Afghanistan Asia       1982    39.9 12881816      978.
+##  8 Afghanistan Asia       1987    40.8 13867957      852.
+##  9 Afghanistan Asia       1992    41.7 16317921      649.
+## 10 Afghanistan Asia       1997    41.8 22227415      635.
+## # ... with 14 more rows
+\end{verbatim}
+
+\subsubsection{\texorpdfstring{\textbf{kableExtra}}{kableExtra}}\label{kableextra}
+
+Let us install the \textbf{kableExtra} package
+
+\begin{verbatim}
+install.packages("kableExtra")
+\end{verbatim}
+
+next, we load the library \textbf{knitr} and \textbf{knitr}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(knitr)}
+\KeywordTok{library}\NormalTok{(kableExtra)}
+\end{Highlighting}
+\end{Shaded}
+
+Let us use the \textbf{kable()} function to display the gapminder data.
+This function is slow when it is used on the gapminder data, I be using
+another data to illustrate how it works.
+
+Data of death rates in Virginia (1940).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(VADeaths)  }\CommentTok{# displays first few rows of data}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       Rural Male Rural Female Urban Male Urban Female
+## 50-54       11.7          8.7       15.4          8.4
+## 55-59       18.1         11.7       24.3         13.6
+## 60-64       26.9         20.3       37.0         19.3
+## 65-69       41.0         30.9       54.6         35.1
+## 70-74       66.0         54.3       71.1         50.0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(VADeaths)  }\CommentTok{# displays the dimension}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5 4
+\end{verbatim}
+
+Note: The result for the kable function makes it difficult for my
+\emph{github\_document} to run so I have displayed them in
+\emph{html\_document} and commented the code here.
+
+Let us use the \textbf{kable()} to display the
+
+\begin{verbatim}
+VADeaths %>%
+  kable() %>%
+   kable_styling() 
+\end{verbatim}
+
+It looks nice than what you will get using \textbf{head()} function
+
+\begin{verbatim}
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = c("striped")) 
+\end{verbatim}
+
+We can also make the table smaller.
+
+\begin{verbatim}
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F) 
+\end{verbatim}
+
+Align the table to the left:
+
+\begin{verbatim}
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F, position="left") 
+\end{verbatim}
+
+\begin{verbatim}
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F, position="right") 
+\end{verbatim}
+
+Adjusting the font size:
+
+\begin{verbatim}
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F, position="right", font_size=8) 
+\end{verbatim}
+
+
+\end{document}

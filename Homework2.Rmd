@@ -1,0 +1,781 @@
+---
+title: 'Homework 2: '
+author: "Sarafa Iyaniwura"
+date: "September 20, 2018"
+output:
+  github_document:
+    toc: yes
+  html_document:
+    toc: yes
+  pdf_document:
+    toc: yes
+---
+
+# Exploring Gapminder data using **dplyr** and **ggplot2**
+
+In this assignment, we explore the gapminder data set using the data wranggling library **dplyr** and data exploration library **ggplot2**, used for plotting data. The **dplyr** library is loaded through the **tidyverse** library.
+
+## 1. Loading libraries
+
+First, let us load the libraries that would be used to explore the data set. Here, we load the **gapminder** data set and the **tidyverse** library.
+
+```{r}
+library(gapminder)  # loads gapminder data
+library(tidyverse)  # loads the tidyverse library
+```
+
+
+
+## 2. Smell testing the data: exploring the features of the data
+
+ In this section, we shall check the features of the data such as the structure, the number and data types of the variables, the dimension of the data, among others.
+
+### 2.1 **str()** function
+
+This function is used to check the structure and class of the data. It give a comprehensive information about the data. Let us see how this function is used and the output it produces.
+
+```{r}
+str(gapminder)  # displays the structure of the data like the variables, their types, the dimension, ...
+```
+Observe that this function has given us a lot of information about the data. Information such as the class of the data, the number of variables, the type of each of the variable and so on. It is important to mention that one can still check for this properties of the data using some other functions.
+
+Before we use other functions to explore the structure of thiz data, let us view its first few rows using the **head()** function
+```{r}
+head(gapminder) # displays the first few rows of the data (default is 6)
+```
+
+This function gave us the first 6 rows of the data, we can always get more by using 
+
+```{r}
+head(gapminder,15) # displays the first 15 rows of the gapminder data
+```
+
+Also, the last few rows of a data frame can be displayed by using the **tail()** function:
+
+```{r}
+tail(gapminder) # displays the last few rows of the data (default is 6)
+```
+
+Similarly, **tail(gapminder,n)** can be used to display the last $n$ rows of the gapminder data.
+
+
+Now, let us check the features of the gapminder data one after the other.
+
+### 2.2 **class()** function
+
+```{r}
+class(gapminder)  # displays the class of the data
+```
+
+1. *tbl_df*: tibbles data frame
+2. *tbl* : tibbles
+3. *data.frame*: data frame
+
+This tells us that the gapminder data is a data frame.
+
+### 2.3 **dim(), nrow(), ncol(), and names()** functions 
+
+The next few function are used to display the dimension, the number of rows and columns, and the variables in the data.
+
+```{r}
+dim(gapminder) #  diplays  the dimension of data
+nrow(gapminder) #  diplays  the number of rows
+ncol(gapminder) #  diplays  the number of columns
+names(gapminder) # diplays the varibles/fields in the data 
+```
+
+
+### 2.4 **sapply()** function
+
+This function applies a specific function to a group of variables. Let us illusttrate how it works by using it to get the class of each of the variables in the gapminder data.
+
+We use **sapply()** function to check the class of the variables in our data as follows.
+
+```{r}
+sapply(gapminder,class) # applies the 'class()' function to each variable in the gapminder data
+```
+
+
+| Variables | data class|
+|----------|-----------|
+| country | factor/categorical |
+| continent | factor/categorical |
+| year  | numeric |
+| lifeExp  | integer |
+|pop gdpPercap | numeric | 
+
+
+As another example, let us use the **sapply()** function to gapply the function **typeof()** to the gapminder data.
+
+```{r}
+sapply(gapminder,typeof) # applies the 'typeof()' function to each variable in the gapminder data
+```
+
+Note that what we got is not what we are actually expecting, for example, 'country' is categorical data but it gives integer. This is because the **typeof()** function returns the types of R objects.
+
+Let us try these same explorations by piping into the functions.
+
+```{r}
+gapminder %>%  # loads the gapminder data (and the result is piped into the next function)
+  sapply(class) # applies the class function on the loaded data
+```
+
+```{r}
+gapminder %>% # loads the gapminder data (and the result is piped into the next function)
+  sapply(typeof) # applies the typeof() function on the loaded data
+```
+
+
+
+## 3. Exploring individual variable
+
+## 3.1 Qualitative data
+Let us begin by considering the **continent** variable. We first explore this variable using bar chat.
+
+### 3.1.1 **Bar chart** 
+
+
+```{r}
+barchart <- gapminder %>%  # loads the gapminder data
+  ggplot(aes(x=continent,fill=continent)) + # calls the ggplot function and specify the axis and fill
+    geom_bar()  # specify the type of  plot
+
+barchart #sdisplays the bar chart
+```
+
+This bar chart shows the number of observations available for each continent. For instance, we have over 600 observation from Africa, around 400 for Asia, and around 300 for America.
+
+This information can be shown more precisely by extracting the 'continent' column from the data and summarizing it as shown below;
+
+The **table()** and **summary()** function
+
+```{r}
+sumAry <- gapminder %>%  # loads gapminder data
+  select(continent) %>% # extract the column for continents
+    summary()   # present a summary of the result
+sumAry
+```
+
+
+We can also use the **table()** function to show the same result.
+
+```{r}
+cont_table <- gapminder %>%  # loads gapminder data
+  select(continent) %>% # extract the column for continents
+    table()  # present the result in  a table
+
+cont_table  # display the table
+```
+
+The **table()** and **summary()** functions as used here give the precise number of observations available for each continent. Next, we plot this information with a pie chart.
+
+
+### 3.1.2  **Pie chart**
+
+Let us display the information about the amount of observations available for each continent using a simple pie chart.
+
+
+```{r}
+pie(cont_table) # use the table constructed earlier to plot a pie chart
+```
+
+We can also plot a pie chart using **ggplot()** function
+
+```{r}
+piechart <- barchart + coord_polar() # plot a pie chart with the ggplot function
+piechart
+```
+
+Observe that the code used to generate this plot depends on the code we used to plot bar chart earlier. In addition, this plot is not good for our data because it does not show the information for Oceania continent properly. Let us try another pie chart:
+
+```{r} 
+# plotting another type of pie chart
+piechart2 <- barchart + 
+  coord_polar("y",start=0) + 
+    scale_fill_brewer(palette = "Dark2") + 
+      theme_minimal()  
+piechart2
+```
+
+This plot is better in the sense that it shows the information for all the continent well, but it may take some time to understand. Let us explore other types of pie charts available in ggplot.
+
+
+```{r} 
+# plotting another type of pie chart
+piechart3 <- ggplot(gapminder,aes(x="",fill=factor(continent))) + geom_bar(width=1) +
+  coord_polar("y",start=0)  +
+    scale_fill_brewer(palette = "Dark2")  +
+      theme_minimal()  
+
+piechart3
+```
+
+### 3.1.3  **Bullseye chart**
+
+Let us plot a bullseye chart
+
+```{r} 
+# plotting a bullseye chart
+ggplot(gapminder,aes(x="",fill=factor(continent))) + geom_bar(width=1) +
+  coord_polar()  +
+    scale_fill_brewer(palette = "Dark2")  +
+      theme_minimal()  
+
+```
+
+### 3.1.3  **filter()**
+
+We can also extract the observations for each continent using the **filter()** function.
+
+```{r}
+gapminder %>%
+  filter(continent == 'Africa') %>%  # extract the data for African countries only
+    dim() # displays the dimension of the extracted data
+```
+
+This shows that we have 624 observation for African countries. We can always do the same for other continents or countries too. As one more example, let us check how many observations are from Nigeria.
+
+
+```{r}
+gapminder %>%
+  filter(continent == 'Africa') %>%  # extract the data for African countries only
+    filter(country == 'Nigeria') %>% # extract the observations from Nigeria.
+      dim() # displays the dimension of the extracted data
+```
+
+There are 12 of them. We can bypass the part of this code that first extracted the data for Africa, and just extract that of Nigeria  directly from the gapminder data. This is shown below;
+
+```{r}
+gapminder %>%
+    filter(country == 'Nigeria') %>% # extract the observations from Nigeria.
+      dim() # displays the dimension of the extracted data
+```
+
+## 3.2 Quantitative data
+
+Here, we would be considering quantitative variables. First, let us check how many years of data is available for each country.
+
+### 3.2.1 **select()** and **unique** functions
+
+```{r}
+gapminder %>%
+  select(year) %>%  # extracts the 'year' column
+    unique() # displays each entry uniquely
+```
+
+This shows that we have 12 years of data.
+
+
+
+### 3.2.2  **summary()**   function
+
+Let us look at the summary satistics of the numerical variables
+
+#### * **Population**
+
+```{r}
+gapminder %>%
+  select(pop) %>% # extract population column
+    summary()  # gives summary of population
+```
+
+Here is the Summary statistics for  population (pop) 
+
+| Statistic | values |
+|----------|-----------|
+| Minimum| 60,010  |
+| First quarter| 2.794 million |
+| Median | 7.024 million |
+| Mean  | 29.60 million |
+| Third Quarter  | 19.59 million |
+| Maximum | 1.319 billion | 
+
+#### * **Life expectancy**
+
+```{r}
+gapminder %>%
+  select(lifeExp) %>% # extract life expectancy column
+    summary()  # displays the summary statistic for life expectancy
+```
+
+Here is the Summary statistics for Life expectancy
+
+| Statistic | values (years) |
+|----------|-----------|
+| Minimum| 23.60 |
+| First quarter| 48.20 |
+| Median | 60.71 |
+| Mean  | 59.47 |
+| Third Quarter  | 70.85 |
+| Maximum | 82.60 | 
+
+
+### 3.2.3 **histogram()** and **density()**
+
+
+
+Let us plot the life expectancy for the extire gapminder data
+
+
+```{r}
+gapminder %>% # loads the gapminder data
+  ggplot(aes(lifeExp)) + # calls the ggplot function
+    geom_histogram(bins=30,aes(fill=continent)) # specifies the type of plot
+```
+
+Hmm... This plot does not give us detailed information about the life expectancy for each continent. Let us plot the same data using a density plot.
+
+
+```{r}
+gapminder %>% # loads the gapminder data
+  ggplot(aes(lifeExp)) +   # calls the ggplot function
+     geom_density(aes(fill=continent)) # specifies the type of plot
+```
+
+This looks better but we still have some overlapping of data. Maybe we can plot for each continent separately?
+
+### 3.2.4 **facet_wrap()**
+
+Now, let us plot the histogram and density plot for each continent separately using the **facet_wrap()** function.
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  ggplot(aes(lifeExp)) + # calls the ggplot function
+    geom_histogram(bins=30,aes(fill=continent)) + # specifies the type of plot
+        facet_wrap(~continent) # specifies that it should plot for each continent seperately
+```
+
+How about the gdp per capital for each continent?
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  ggplot(aes(gdpPercap)) + # calls the ggplot function
+    geom_histogram(bins=30,aes(fill=continent)) +  # specifies the type of plot
+      facet_wrap(~continent) +# specifies that it should plot for each continent seperately
+        scale_y_log10()
+```
+
+
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  ggplot(aes(lifeExp)) + # calls the ggplot function
+    geom_density(bins=30,aes(fill=continent)) + # specifies the type of plot
+        facet_wrap(~continent) # specifies that it should plot for each continent seperately
+```
+
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  ggplot(aes(gdpPercap)) + # calls the ggplot function
+    geom_density(bins=30,aes(fill=continent)) + # specifies the type of plot
+        facet_wrap(~continent) # specifies that it should plot for each continent seperately
+```
+
+
+## 4. Exploring various plots
+
+In this section, we shall be exploring  and visualizing the entire gapminder data or part of using plots and figures.
+
+### 4.1  Gdp per capital and population
+
+Let us begin by plotting a scatter plot of the *gdpPercap** and **population**.
+
+
+```{r}
+gapminder %>% # loads the gapminder data
+  select(pop,gdpPercap,continent) %>% # extract the  columns to be considered
+    ggplot(aes(pop,gdpPercap)) +  # calling the ggplot function
+        geom_point(aes(color=continent))  + # specifies the type of plot
+          scale_y_log10() + scale_x_log10() # log scale for both axis
+```
+
+Hmm this looks messy! Let us plot the same columns but for one continent only, say Europe.
+
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  filter(continent=='Europe')  %>%   # extracting data for Europian countries only
+    select(pop,gdpPercap,continent) %>% # select the columns to be considered
+      ggplot(aes(pop,gdpPercap)) +   # calling the ggplot function
+        geom_point(aes(color=continent))  + # specifies the type of plot
+          scale_y_log10() + scale_x_log10() # log scale for both axis
+```
+
+
+We can do this in a more fancy way by plotting for each continent separately using the **facet_wrap()** function.
+
+```{r}
+gapminder %>% # loads the gapminder data
+      select(pop,gdpPercap,continent)  %>%  # select the variables to be considered
+        ggplot(aes(pop,gdpPercap)) +   # calling the ggplot function
+          geom_point(aes(color=continent)) + # specifies the type of plot
+              facet_wrap(~continent) + 
+                  scale_y_log10() + scale_x_log10() # log scale for both axis
+
+```
+
+This shows the GDP per capital vs population for each continent.
+
+Some of the things we can easily see from these plots is that in Asia, when the pupolation is high, the gdp per capital is low and when the gdp per capital is high, the population is low. From this graphs we can easily see the relationship between the gdp per capital for each country and the population over the years.
+
+### 4.1 Population and life expectancy
+
+Let us plot population vs life expectancy for this data and colour them by continent.
+
+```{r}
+gapminder %>%  # loads the gapminder data
+    select(lifeExp,pop,continent) %>% # select the variables to be considered
+        ggplot(aes(x=lifeExp,y=pop)) +   # calling the ggplot function
+            geom_point(aes(color=continent))+  # specifies the type of plot
+                scale_y_log10()
+```
+
+Now, let us plot this information continent by continent.
+
+```{r}
+gapminder %>%  # loads the gapminder data
+        ggplot(aes(lifeExp,pop)) +   # calling the ggplot function
+          geom_point(aes(color=continent)) + # specifies the type of plot
+              facet_wrap(~continent) + scale_y_log10()
+
+```
+
+How about somthing similar for African and Europian countries only.
+
+
+```{r}
+gapminder %>% # loads the gapminder data
+    filter(continent=='Europe' | continent=='Africa')  %>%  # extract data for African and Europian countries only
+        ggplot(aes(lifeExp,pop)) +  # calling the ggplot function
+          geom_point(aes(color=continent)) + # specifies the type of plot
+            scale_y_log10()  # specify log scale for y
+```
+
+This shows that most of the  African countries have lower life expentancy, relative to the Europian countries. 
+
+
+Let us see how this information is displayed with a **boxplot()** and a **violin()** plot:
+
+  * Boxplot
+
+```{r}
+gapminder %>% # loads the gapminder data
+    filter(continent=='Europe' | continent=='Africa')  %>%  # extract data for African and Europian countries only
+        ggplot(aes(lifeExp,pop,fill=continent)) +  # calling the ggplot function
+          geom_boxplot(aes(color=continent)) + # specifies the type of plot
+            scale_y_log10()  # specify log scale for y
+```
+
+
+  *  Violin plot 
+
+
+```{r}
+gapminder %>%  # loads the gapminder data
+    filter(continent=='Europe' | continent=='Africa')  %>%  # extract data for African and Europian countries only
+      select(lifeExp,pop,continent)  %>%
+        ggplot(aes(lifeExp,pop,fill=continent)) +
+          geom_violin(aes(color=continent))  + # specifies the type of plot
+            scale_y_log10()  # specify log scale for y
+```
+
+Now, let us use **boxplot()** to show the life expentancy data for each continent.
+
+```{r}
+gapminder %>% # loads the gapminder data
+  ggplot(aes(continent,lifeExp,fill=continent)) + 
+    geom_boxplot(aes(color=continent))  # specifies the type of plot
+```
+
+What of using **geom_violin()** plot together with **geom_jitter()** for the same data?
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  ggplot(aes(continent,lifeExp)) + 
+    geom_violin(aes(color=continent,fill=continent)) +  # specifies the type of plot
+      geom_jitter(alpha=0.2)  # specifies additional type of plot
+```
+
+### 4.3 Gdp per capital and continent
+
+Let us use a boxplot to show the gpd per capital for each continent in different years using **facet_wrap()** function
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  ggplot(aes(continent,gdpPercap)) +
+            geom_boxplot(fill='green') +  # specifies the type of plot
+                scale_y_log10() + 
+                  geom_jitter(alpha=0.3,fill='red') +   # specifies additional type of plot
+                        facet_wrap(~year)  # specify that each  year should be plotted separately
+```
+
+How about plotting the same figure but for some selected years? Let us do this for the following years; 1952, 1962, 1972, 1982, 1997, and 2007.
+
+
+```{r}
+gapminder %>%  # loads the gapminder data
+  filter(year == '1952' | year == '1962' | year == '1972' | year == '1982' | year == '1997' | year == '2007') %>%
+    ggplot(aes(continent,gdpPercap)) +
+              geom_boxplot(fill='green') +
+                  scale_y_log10() + 
+                    geom_jitter(alpha=0.3,fill='red') + 
+    facet_wrap(~year)
+```
+
+
+What if we want to do the same but for a specific year upward or downward? Say from 1982 to 2007
+
+
+```{r}
+gapminder %>% # loads the gapminder data
+  filter(year >= "1982") %>%
+    ggplot(aes(continent,gdpPercap)) +
+              geom_boxplot(fill='green') +
+                  scale_y_log10() + 
+                    geom_jitter(alpha=0.3,fill='red') + 
+    facet_wrap(~year)
+```
+
+Let us do the same for countreis less than 1982;
+
+```{r}
+gapminder %>% # loads the gapminder data
+  filter(year < '1982') %>%
+    ggplot(aes(continent,gdpPercap)) +
+              geom_boxplot(fill='green') +
+                  scale_y_log10() + 
+                    geom_jitter(alpha=0.3,fill='red') + 
+    facet_wrap(~year)
+```
+
+
+Let us use **geom_smooth()** function to plot the population for all the continent.
+
+```{r}
+gapminder %>% # loads the gapminder data
+    ggplot( aes(year,pop,colour=continent)) + 
+      geom_smooth() 
+```
+
+Population is increasing over the years.
+
+
+How about the same for only Asia and Africa over the years?
+
+```{r}
+gapminder %>% # loads the gapminder data
+  filter(continent=="Asia" | continent=="Africa") %>%
+    ggplot( aes(year,pop,colour=continent)) + 
+      geom_smooth() 
+```
+
+Asian's population is  increasing faster than that of Africa over the years.
+
+Let us plot the gdp per capital for all the continents using the same function.
+
+```{r}
+gapminder %>% # loads the gapminder data
+  ggplot( aes(year,gdpPercap,colour=continent)) + 
+    geom_smooth(model=lm) 
+```
+
+Gpd per capital  for each continent is increasing over the years, with Africa having the slowest growth.
+
+## 4.1 Extracting part of the data and exploring it.
+
+Here, I will be extracting the observations from African and then those from Nigeria. We will explore the extracted data in more detail.
+
+Let us extract the observations for all the African countries using the  **filter()** function
+
+```{r}
+AfricData <- filter(gapminder,continent=="Africa") # extracts the observations from Africa
+dim(AfricData) # displays the size of the data
+head(AfricData,20)  # displays the first 20 rows of the extracted data
+```
+
+Now, we would extract the observation for NIgeria only.
+
+```{r}
+NigData <- filter(gapminder,country=="Nigeria")
+dim(NigData)
+head(NigData)
+```
+
+Let us check how the expectancy of Nigerians have changed over the years. We can plot this life expectancy over the years using **geom_line()** function.
+
+```{r}
+NigData %>%
+  ggplot( aes(year,lifeExp)) + 
+    geom_line() + 
+      geom_point()
+```
+
+Now, let us plot Nigeria population over the years.
+
+```{r}
+NigData %>%   # load the extracted observation for Nigeria 
+  ggplot( aes(year,pop)) + # calls the ggplot function
+    geom_line() +  # specifies the type of plot you want
+      geom_area(fill='green') # fill the area under the graph
+```
+
+Here, I have use the **geom_area()** function to shade the area under the curve.
+
+
+We do the same for gdp per capital over the years.
+
+```{r}
+NigData %>%
+  ggplot( aes(year,gdpPercap)) + 
+    geom_line() + 
+      geom_point()
+```
+
+Next, we check if there is relationship between the variables in the observation for Nigeria.
+
+Let us start by checking life expectancy and population over the years.
+
+
+```{r}
+NigData %>%
+    count(lifeExp,pop,year) %>%
+        ggplot(aes(x=lifeExp,y=pop)) + 
+            geom_point(aes(color=year,size=year))+
+                scale_y_log10()
+```
+
+From the graph, it looks like there is a positive relationship between them. Let us check verify this checking the  correlation between the two variables
+
+```{r}
+cor(NigData$lifeExp,NigData$pop)  # computes correlation between lifeExp and pop
+```
+
+This confirms that there is a stron positive relationship between them. What of life expectancy and gdp per capital?
+
+```{r}
+NigData %>%
+      ggplot(aes(x=lifeExp,y=gdpPercap)) + 
+            geom_point(aes(color=year,size=year))+
+                scale_y_log10()
+```
+
+It is hard to tell if there is a relationship from the plot. Let us check my computing the correlation coefficient.
+
+
+```{r}
+cor(NigData$lifeExp,NigData$gdpPercap) # computes correlation between lifeExp and gdpPercap
+```
+
+There is a positive relationship between lifeExp and gdpPercap. Lastly, we plot the population vs gdp per capital.
+
+```{r}
+NigData %>%
+      ggplot(aes(x=pop,y=gdpPercap)) + 
+            geom_point(aes(color=year,size=year))+
+                scale_y_log10()
+```
+
+It is not easy to tell from the plot if a relationship exist, let us verify with correlation coefficient.
+
+
+```{r}
+cor(NigData$pop,NigData$gdpPercap) # computes correlation between population and gdpPercap
+```
+
+
+## I want to do more
+
+The analyst wanted to extract data for Rwanda and Afghanistan only and they used the following code
+
+```{r}
+ filter(gapminder, country == c("Rwanda","Afghanistan"))
+```
+
+**NO!** the analyst did not succeed. Because this only produced 12 rows, observations for only 6 years fro each of the countries instead of 12 for each, to give a total of 24 rows.
+
+We see below that in the pagminder data, there are 12 rows for Rwanda and also 12 for Afghanistan.
+```{r}
+ filter(gapminder, country == "Rwanda")
+ filter(gapminder, country == "Afghanistan")
+```
+
+The follow code can be used to extract all the observations for Rwanda and Afghanistan only from the gapminder data.
+
+```{r}
+ filter(gapminder, country == "Rwanda"  | country ==  "Afghanistan" )
+```
+
+### **kableExtra** 
+
+Let us install the **kableExtra** package
+
+~~~~
+install.packages("kableExtra")
+~~~~
+
+next, we load the library **knitr** and **knitr**
+
+```{r}
+library(knitr)
+library(kableExtra)
+```
+
+Let us use the **kable()** function to display the gapminder data. This function is slow when it is used on the gapminder data, I be using another data to illustrate how it works.
+
+Data of death rates in Virginia (1940).
+
+```{r}
+head(VADeaths)  # displays first few rows of data
+dim(VADeaths)  # displays the dimension
+```
+
+Note: The result for the kable function makes it difficult for my *github_document* to run so I have displayed them in *html_document* and commented the code here.
+
+Let us use the **kable()** to display the
+
+~~~
+VADeaths %>%
+  kable() %>%
+   kable_styling() 
+~~~
+
+It looks nice than what you will get using **head()** function
+
+~~~
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = c("striped")) 
+~~~
+
+We can also make the table smaller.
+
+~~~
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F) 
+~~~
+
+Align the table to the left:
+
+~~~
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F, position="left") 
+~~~
+
+
+~~~
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F, position="right") 
+~~~
+
+
+Adjusting the font size:
+
+~~~
+VADeaths %>%
+  kable() %>%
+   kable_styling(bootstrap_options = "striped", full_width = F, position="right", font_size=8) 
+~~~
